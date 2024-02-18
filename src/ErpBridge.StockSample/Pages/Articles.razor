@@ -1,0 +1,55 @@
+﻿@page "/articles"
+@using Microsoft.AspNetCore.Authorization
+@using ErpBridge.Models
+@inject IHttpClientFactory HttpFactory
+
+@attribute [Authorize]
+
+<PageTitle>Weather</PageTitle>
+
+<h1>Articles</h1>
+
+<p>This component demonstrates fetching data from the api server.</p>
+
+@if (articles == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var article in articles)
+            {
+                <tr>
+                    <td>
+                        <pre>@article.Number</pre>
+                    </td>
+                    <td>
+                        <pre>@article.Name</pre>
+                    </td>
+                    <td>
+                        <pre>@article.Description</pre>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Article[]? articles;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var http = HttpFactory.CreateClient("ERP");
+        articles = await http.GetFromJsonAsync<Article[]>("Article/GetAll");
+    }
+}
