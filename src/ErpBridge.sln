@@ -11,9 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ErpBridge.Adapters", "ErpBr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ErpBridge.Adapters.Dummy", "ErpBridge.Adapters.Dummy\ErpBridge.Adapters.Dummy.csproj", "{36C42CA5-CCFC-4917-B472-4800299C81A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErpBridge.Adapters.Mosaik", "ErpBridge.Adapters.Mosaik\ErpBridge.Adapters.Mosaik.csproj", "{BACBB78C-286C-4B71-99BB-C8B1296381F2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErpBridge.StockSample", "ErpBridge.StockSample\ErpBridge.StockSample.csproj", "{43630FD5-3D89-4D52-A04E-B01483F70CFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ErpBridge.Adapters.Mosaik", "ErpBridge.Adapters.Mosaik\ErpBridge.Adapters.Mosaik.csproj", "{BACBB78C-286C-4B71-99BB-C8B1296381F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +39,6 @@ Global
 		{BACBB78C-286C-4B71-99BB-C8B1296381F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BACBB78C-286C-4B71-99BB-C8B1296381F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BACBB78C-286C-4B71-99BB-C8B1296381F2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{43630FD5-3D89-4D52-A04E-B01483F70CFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43630FD5-3D89-4D52-A04E-B01483F70CFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43630FD5-3D89-4D52-A04E-B01483F70CFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43630FD5-3D89-4D52-A04E-B01483F70CFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
