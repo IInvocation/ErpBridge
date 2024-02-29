@@ -40,10 +40,10 @@ public class Program
     {
         var app = builder.Build();
 
-        app.UseOpenApi();
         app.UseHttpsRedirection();
         app.UseCors();
         app.UseAuth();
+        app.UseOpenApi();
         app.UseRestApi();
 
         return app;

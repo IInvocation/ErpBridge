@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ErpBridge.Adapters.Dummy", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ErpBridge.Adapters.Mosaik", "ErpBridge.Adapters.Mosaik\ErpBridge.Adapters.Mosaik.csproj", "{BACBB78C-286C-4B71-99BB-C8B1296381F2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ErpBridge.Client.Mvc", "ErpBridge.Client.Mvc\ErpBridge.Client.Mvc.csproj", "{970C147A-F92D-4553-9700-B05280C97DCB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ErpBridge.Client.AngularBff", "ErpBridge.Client.AngularBff\ErpBridge.Client.AngularBff.csproj", "{21DB1697-EC52-46FB-8FFC-78018652ACE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{BACBB78C-286C-4B71-99BB-C8B1296381F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BACBB78C-286C-4B71-99BB-C8B1296381F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BACBB78C-286C-4B71-99BB-C8B1296381F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{970C147A-F92D-4553-9700-B05280C97DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{970C147A-F92D-4553-9700-B05280C97DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{970C147A-F92D-4553-9700-B05280C97DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{970C147A-F92D-4553-9700-B05280C97DCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21DB1697-EC52-46FB-8FFC-78018652ACE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21DB1697-EC52-46FB-8FFC-78018652ACE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21DB1697-EC52-46FB-8FFC-78018652ACE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21DB1697-EC52-46FB-8FFC-78018652ACE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
