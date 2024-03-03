@@ -1,0 +1,1 @@
+{"version":3,"file":"show-article.component.js","sourceRoot":"","sources":["../../../../src/article/show-article/show-article.component.ts"],"names":[],"mappings":";AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,eAAe,CAAC;AAOnC,IAAM,oBAAoB,GAA1B,MAAM,oBAAoB;CAEhC,CAAA;AAFY,oBAAoB;IALhC,SAAS,CAAC;QACT,QAAQ,EAAE,kBAAkB;QAC5B,WAAW,EAAE,+BAA+B;QAC5C,QAAQ,EAAE,+BAA+B;KAC1C,CAAC;GACW,oBAAoB,CAEhC"}

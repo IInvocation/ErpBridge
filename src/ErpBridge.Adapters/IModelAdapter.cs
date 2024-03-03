@@ -1,4 +1,7 @@
-﻿namespace ErpBridge.Adapters;
+﻿using ErpBridge.Models.Searching;
+using ErpBridge.Models.Sorting;
+
+namespace ErpBridge.Adapters;
 
 /// <summary>   Interface for model adapter. </summary>
 /// <typeparam name="TModel">   Type of the model. </typeparam>
@@ -25,4 +28,25 @@ public interface IModelAdapter<TModel>
     ///                                     cancelled. </param>
     /// <returns>   The count. </returns>
     Task<long> CountAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>   Searches for the first match. </summary>
+    /// <param name="sortField">    The sort field. </param>
+    /// <param name="direction">    The direction. </param>
+    /// <param name="pageIndex">    Zero-based index of the page. </param>
+    /// <param name="pageSize">     Size of the page. </param>
+    /// <param name="filter">       Specifies the filter. </param>
+    /// <returns>   A SearchResult&lt;TModel&gt; </returns>
+    SearchResult<TModel> Search(string? sortField, SortDirection direction, int pageIndex, int pageSize, string? filter);
+
+    /// <summary>   Searches for the first asynchronous. </summary>
+    /// <value> The search. </value>
+    ///
+    /// ### <param name="sortField">            The sort field. </param>
+    /// ### <param name="direction">            The direction. </param>
+    /// ### <param name="pageIndex">            Zero-based index of the page. </param>
+    /// ### <param name="pageSize">             Size of the page. </param>
+    /// ### <param name="filter">               Specifies the filter. </param>
+    /// ### <param name="cancellationToken">    (Optional) A token that allows processing to be
+    ///                                         cancelled. </param>
+    Task<SearchResult<TModel>> SearchAsync(string? sortField, SortDirection direction, int pageIndex, int pageSize, string? filter, CancellationToken cancellationToken = default);
 }

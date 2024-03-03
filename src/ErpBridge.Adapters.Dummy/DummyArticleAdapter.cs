@@ -5,6 +5,10 @@ namespace ErpBridge.Adapters.Dummy;
 /// <summary>   A dummy article adapter. </summary>
 public class DummyArticleAdapter : DummyModelAdapter<Article>, IArticleAdapter
 {
+    /// <summary>   Gets the default sort field. </summary>
+    /// <value> The default sort field. </value>
+    protected override string DefaultSortField => nameof(Article.Number);
+
     /// <summary>   Enumerates create samples in this collection. </summary>
     /// <returns>
     ///     An enumerator that allows foreach to be used to process create samples in this collection.

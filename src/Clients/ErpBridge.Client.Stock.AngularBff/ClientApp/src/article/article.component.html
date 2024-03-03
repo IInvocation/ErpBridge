@@ -1,0 +1,20 @@
+<h1>Lager</h1>
+
+<p *ngIf="!articles?.length"><em>Loading...</em></p>
+
+<table mat-table [dataSource]="articles">
+    <ng-container matColumnDef="number">
+        <th mat-header-cell *matHeaderCellDef> Nummer </th>
+        <td mat-cell *matCellDef="let article"> {{article.Number}} </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let article"> {{article.Name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Beschreibung </th>
+        <td mat-cell *matCellDef="let article"><pre>{{article.Description}}</pre></td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
+</table>

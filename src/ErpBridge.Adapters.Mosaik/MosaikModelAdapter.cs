@@ -1,5 +1,9 @@
-﻿using Dapper;
+﻿using System.Data;
+using Dapper;
 using ErpBridge.Adapters.Mosaik.ConnectionFactories;
+using ErpBridge.Models.Searching;
+using ErpBridge.Models.Sorting;
+using System.Threading;
 
 namespace ErpBridge.Adapters.Mosaik;
 
@@ -21,6 +25,24 @@ public abstract class MosaikModelAdapter<TModel> : IModelAdapter<TModel>
     /// <summary>   Gets select all query. </summary>
     /// <returns>   The select all query. </returns>
     protected abstract string GetSelectAllStatement();
+
+    /// <summary>   Gets count search statement. </summary>
+    /// <param name="sortField">    The sort field. </param>
+    /// <param name="direction">    The direction. </param>
+    /// <param name="pageIndex">    Zero-based index of the page. </param>
+    /// <param name="pageSize">     Size of the page. </param>
+    /// <param name="filter">       Specifies the filter. </param>
+    /// <returns>   The count search statement. </returns>
+    protected abstract string GetCountSearchStatement(string sortField, SortDirection direction, int pageIndex, int pageSize, string filter);
+
+    /// <summary>   Gets search statement. </summary>
+    /// <param name="sortField">    The sort field. </param>
+    /// <param name="direction">    The direction. </param>
+    /// <param name="pageIndex">    Zero-based index of the page. </param>
+    /// <param name="pageSize">     Size of the page. </param>
+    /// <param name="filter">       Specifies the filter. </param>
+    /// <returns>   The search statement. </returns>
+    protected abstract string GetSearchStatement(string sortField, SortDirection direction, int pageIndex, int pageSize, string filter);
 
     /// <summary>   Gets count all query. </summary>
     /// <returns>   The count all query. </returns>
@@ -70,5 +92,86 @@ public abstract class MosaikModelAdapter<TModel> : IModelAdapter<TModel>
         var sql = GetCountAllStatement();
         var query = new CommandDefinition(sql, cancellationToken: cancellationToken);
         return await con.ExecuteScalarAsync<long>(query);
+    }
+
+    /// <summary>   Count search. </summary>
+    /// <param name="con">          The con. </param>
+    /// <param name="sortField">    The sort field. </param>
+    /// <param name="direction">    The direction. </param>
+    /// <param name="pageIndex">    Zero-based index of the page. </param>
+    /// <param name="pageSize">     Size of the page. </param>
+    /// <param name="filter">       Specifies the filter. </param>
+    /// <returns>   The total number of search. </returns>
+    public int CountSearch(IDbConnection con, string sortField, SortDirection direction, int pageIndex, int pageSize, string filter)
+    {
+        var sql = GetCountSearchStatement(sortField, direction, pageIndex, pageSize, filter);
+        return con.ExecuteScalar<int>(sql);
+    }
+
+    /// <summary>   Count search asynchronous. </summary>
+    /// <param name="con">                  The con. </param>
+    /// <param name="sortField">            The sort field. </param>
+    /// <param name="direction">            The direction. </param>
+    /// <param name="pageIndex">            Zero-based index of the page. </param>
+    /// <param name="pageSize">             Size of the page. </param>
+    /// <param name="filter">               Specifies the filter. </param>
+    /// <param name="cancellationToken">    (Optional) A token that allows processing to be
+    ///                                     cancelled. </param>
+    /// <returns>   The count search. </returns>
+    public async Task<int> CountSearchAsync(IDbConnection con, string sortField, SortDirection direction, int pageIndex, int pageSize, string filter, CancellationToken cancellationToken = default)
+    {
+        var sql = GetCountSearchStatement(sortField, direction, pageIndex, pageSize, filter);
+        var query = new CommandDefinition(sql, cancellationToken: cancellationToken);
+        return await con.ExecuteScalarAsync<int>(query);
+    }
+
+    /// <summary>   Searches for the first match. </summary>
+    /// <param name="sortField">    The sort field. </param>
+    /// <param name="direction">    The direction. </param>
+    /// <param name="pageIndex">    Zero-based index of the page. </param>
+    /// <param name="pageSize">     Size of the page. </param>
+    /// <param name="filter">       Specifies the filter. </param>
+    /// <returns>   A SearchResult&lt;TModel&gt; </returns>
+    public SearchResult<TModel> Search(string sortField, SortDirection direction, int pageIndex, int pageSize, string filter)
+    {
+        using var con = ConnectionFactory.CreateConnection();
+
+        var sql = GetSearchStatement(sortField, direction, pageIndex, pageSize, filter);
+        var models = con.Query<TModel>(sql).ToList();
+
+        var count = CountSearch(con, sortField, direction, pageIndex, pageSize, filter);
+
+        return new SearchResult<TModel>
+        {
+            PageIndex = pageIndex,
+            PageSize = pageSize,
+            PageCount = count / pageSize + (count % pageSize > 0 ? 1 : 0),
+            Records = models
+        };
+    }
+
+    /// <summary>   Searches for the first asynchronous. </summary>
+    /// <param name="sortField">    The sort field. </param>
+    /// <param name="direction">    The direction. </param>
+    /// <param name="pageIndex">    Zero-based index of the page. </param>
+    /// <param name="pageSize">     Size of the page. </param>
+    /// <param name="filter">       Specifies the filter. </param>
+    /// <returns>   The search. </returns>
+    public async Task<SearchResult<TModel>> SearchAsync(string sortField, SortDirection direction, int pageIndex, int pageSize, string filter, CancellationToken cancellationToken = default)
+    {
+        using var con = ConnectionFactory.CreateConnection();
+        var sql = GetSelectAllStatement();
+        var query = new CommandDefinition(sql, cancellationToken: cancellationToken);
+        var models = await con.QueryAsync<TModel>(query);
+        var count = await CountSearchAsync(con, sortField, direction, pageIndex, pageSize, filter, cancellationToken);
+        var lModels = models.ToList();
+
+        return new SearchResult<TModel>
+        {
+            PageIndex = pageIndex,
+            PageSize = pageSize,
+            PageCount = count / pageSize + (count % pageSize > 0 ? 1 : 0),
+            Records = lModels
+        };
     }
 }
