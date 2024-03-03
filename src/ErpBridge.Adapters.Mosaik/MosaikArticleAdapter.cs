@@ -1,6 +1,5 @@
 ﻿using ErpBridge.Adapters.Mosaik.ConnectionFactories;
 using ErpBridge.Models;
-using ErpBridge.Models.Sorting;
 
 namespace ErpBridge.Adapters.Mosaik;
 
@@ -22,6 +21,10 @@ public class MosaikArticleAdapter : MosaikMappingModelAdapter<Article>, IArticle
         new KeyValuePair<string, string>("Dimensionstext", "Description")
     });
 
+    /// <summary>   Gets the default sort field. </summary>
+    /// <value> The default sort field. </value>
+    protected override string DefaultSortField => "Nummer";
+
     /// <summary>   Gets the filter fields in this collection. </summary>
     /// <returns>
     ///     An enumerator that allows foreach to be used to process the filter fields in this
@@ -29,10 +32,6 @@ public class MosaikArticleAdapter : MosaikMappingModelAdapter<Article>, IArticle
     /// </returns>
     protected override IEnumerable<string> GetFilterFields()
     {
-        return Fields.Select(f => f.Value).Except(new []{"Dimensionstext"});
+        return Fields.Select(f => f.Value).Except(new[] { "Dimensionstext" });
     }
-
-    /// <summary>   Gets the default sort field. </summary>
-    /// <value> The default sort field. </value>
-    protected override string DefaultSortField => "Nummer";
 }

@@ -1,8 +1,10 @@
 <h1 id="tableLabel">Wetter</h1>
 
-<p *ngIf="!forecasts?.length"><em>Loading...</em></p>
+<p *ngIf="!forecasts?.length">
+    <em>Loading...</em>
+</p>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="forecasts.length">
+<table class="table table-striped" aria-labelledby="tableLabel" *ngIf="forecasts.length">
     <thead>
     <tr>
         <th>Datum</th>

@@ -34,32 +34,40 @@ public interface IPagedModelAdapter<TModel> : IModelAdapter<TModel>
 
     /// <summary>   Gets paged asynchronous. </summary>
     /// <param name="pageIndex">            Zero-based index of the page. </param>
-    /// <param name="cancellationToken">    (Optional) A token that allows processing to be
-    ///                                     cancelled. </param>
+    /// <param name="cancellationToken">
+    ///     (Optional) A token that allows processing to be
+    ///     cancelled.
+    /// </param>
     /// <returns>   The paged. </returns>
     Task<IEnumerable<TModel>> GetPagedAsync(int pageIndex, CancellationToken cancellationToken = default);
 
     /// <summary>   Gets paged asynchronous. </summary>
     /// <param name="pageIndex">            Zero-based index of the page. </param>
     /// <param name="pageSize">             Size of the page. </param>
-    /// <param name="cancellationToken">    (Optional) A token that allows processing to be
-    ///                                     cancelled. </param>
+    /// <param name="cancellationToken">
+    ///     (Optional) A token that allows processing to be
+    ///     cancelled.
+    /// </param>
     /// <returns>   The paged. </returns>
     Task<IEnumerable<TModel>> GetPagedAsync(int pageIndex, int pageSize,
         CancellationToken cancellationToken = default);
 
     /// <summary>   Gets paged result asynchronous. </summary>
     /// <param name="pageIndex">            Zero-based index of the page. </param>
-    /// <param name="cancellationToken">    (Optional) A token that allows processing to be
-    ///                                     cancelled. </param>
+    /// <param name="cancellationToken">
+    ///     (Optional) A token that allows processing to be
+    ///     cancelled.
+    /// </param>
     /// <returns>   The paged result. </returns>
     Task<IPagedResult<TModel>> GetPagedResultAsync(int pageIndex, CancellationToken cancellationToken = default);
 
     /// <summary>   Gets paged result asynchronous. </summary>
     /// <param name="pageIndex">            Zero-based index of the page. </param>
     /// <param name="pageSize">             Size of the page. </param>
-    /// <param name="cancellationToken">    (Optional) A token that allows processing to be
-    ///                                     cancelled. </param>
+    /// <param name="cancellationToken">
+    ///     (Optional) A token that allows processing to be
+    ///     cancelled.
+    /// </param>
     /// <returns>   The paged result. </returns>
     Task<IPagedResult<TModel>> GetPagedResultAsync(int pageIndex, int pageSize,
         CancellationToken cancellationToken = default);

@@ -22,7 +22,7 @@ public static class MosaikStartup
         services.Configure<MosaikOptions>(configuration.GetSection("Mosaik"));
 
         var options = configuration.GetSection("Mosaik").Get<MosaikOptions>() ??
-                         throw new InvalidConfigurationException();
+                      throw new InvalidConfigurationException();
 
         if (options.UseDummies)
         {

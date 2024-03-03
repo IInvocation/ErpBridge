@@ -7,9 +7,11 @@
             {{ info.given_name }}
         </button>
         <ul class="dropdown-menu" aria-labelledby="authDropDown">
-            <li><a class="dropdown-item" (click)="logout()">Abmelden</a></li>
-        </ul>      
-    </li>    
+            <li>
+                <a class="dropdown-item" (click)="logout()">Abmelden</a>
+            </li>
+        </ul>
+    </li>
 </span>
 <span *ngIf="!info">
     <li class="nav-item">

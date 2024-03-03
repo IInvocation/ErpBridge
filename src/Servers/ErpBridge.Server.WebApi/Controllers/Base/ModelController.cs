@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using ErpBridge.Adapters;
+﻿using ErpBridge.Adapters;
 using ErpBridge.Models.Searching;
 using ErpBridge.Models.Sorting;
 using Microsoft.AspNetCore.Authorization;
@@ -51,7 +50,8 @@ public abstract class ModelController<TModel> : ControllerBase
     /// <param name="filter">       Specifies the filter. </param>
     /// <returns>   A SearchResult&lt;TModel&gt; </returns>
     [HttpGet("Search")]
-    public SearchResult<TModel> Search(string? sortField = null, SortDirection direction = SortDirection.Ascending, int pageIndex = 0, int pageSize = 20, string? filter = null)
+    public SearchResult<TModel> Search(string? sortField = null, SortDirection direction = SortDirection.Ascending,
+        int pageIndex = 0, int pageSize = 20, string? filter = null)
     {
         return Adapter.Search(sortField, direction, pageIndex, pageSize, filter);
     }

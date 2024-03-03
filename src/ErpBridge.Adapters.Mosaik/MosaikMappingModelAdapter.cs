@@ -11,7 +11,8 @@ public abstract class MosaikMappingModelAdapter<TModel> : MosaikModelAdapter<TMo
 {
     /// <summary>   A mosaik mapping model adapter. </summary>
     /// <typeparam name="TModel">   Type of the model. </typeparam>
-    protected MosaikMappingModelAdapter(string tableName, IConnectionFactory connectionFactory) : base(connectionFactory)
+    protected MosaikMappingModelAdapter(string tableName, IConnectionFactory connectionFactory) : base(
+        connectionFactory)
     {
         TableName = !string.IsNullOrWhiteSpace(tableName)
             ? tableName
@@ -42,7 +43,7 @@ public abstract class MosaikMappingModelAdapter<TModel> : MosaikModelAdapter<TMo
     protected override string GetSelectAllStatement()
     {
         var sb = new StringBuilder();
-        
+
         sb.Append("SELECT TOP 10");
         for (var i = 0; i < Fields.Count; i++)
         {
@@ -67,12 +68,17 @@ public abstract class MosaikMappingModelAdapter<TModel> : MosaikModelAdapter<TMo
     {
         var modelType = typeof(TModel);
         var properties = modelType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-        return (from property in properties where property.PropertyType == typeof(string) && property.CanRead select property.Name).ToList();
+        return (from property in properties
+            where property.PropertyType == typeof(string) && property.CanRead
+            select property.Name).ToList();
     }
 
     /// <summary>   Gets count all query. </summary>
     /// <returns>   The count all query. </returns>
-    protected override string GetCountAllStatement() =>  $"SELECT COUNT (*) FROM {TableName}";
+    protected override string GetCountAllStatement()
+    {
+        return $"SELECT COUNT (*) FROM {TableName}";
+    }
 
     /// <summary>   Gets count search statement. </summary>
     /// <param name="sortField">    The sort field. </param>
@@ -81,7 +87,8 @@ public abstract class MosaikMappingModelAdapter<TModel> : MosaikModelAdapter<TMo
     /// <param name="pageSize">     Size of the page. </param>
     /// <param name="filter">       Specifies the filter. </param>
     /// <returns>   The count search statement. </returns>
-    protected override string GetCountSearchStatement(string sortField, SortDirection direction, int pageIndex, int pageSize, string filter)
+    protected override string GetCountSearchStatement(string sortField, SortDirection direction, int pageIndex,
+        int pageSize, string filter)
     {
         var sField = Fields.SingleOrDefault(f => f.Value == sortField).Key;
         var realSortField = string.IsNullOrWhiteSpace(sField) ? DefaultSortField : sField;
@@ -92,10 +99,7 @@ public abstract class MosaikMappingModelAdapter<TModel> : MosaikModelAdapter<TMo
         sb.Append("SELECT COUNT (*)");
         sb.Append($" FROM {TableName}");
 
-        if (!string.IsNullOrWhiteSpace(filter))
-        {
-            sb.Append($" WHERE {BuildFilterPredicate(filter)}");
-        }
+        if (!string.IsNullOrWhiteSpace(filter)) sb.Append($" WHERE {BuildFilterPredicate(filter)}");
 
         return sb.ToString();
     }
@@ -107,7 +111,8 @@ public abstract class MosaikMappingModelAdapter<TModel> : MosaikModelAdapter<TMo
     /// <param name="pageSize">     Size of the page. </param>
     /// <param name="filter">       Specifies the filter. </param>
     /// <returns>   The search statement. </returns>
-    protected override string GetSearchStatement(string sortField, SortDirection direction, int pageIndex, int pageSize, string filter)
+    protected override string GetSearchStatement(string sortField, SortDirection direction, int pageIndex, int pageSize,
+        string filter)
     {
         var sField = Fields.SingleOrDefault(f => f.Value == sortField).Key;
         var realSortField = string.IsNullOrWhiteSpace(sField) ? DefaultSortField : sField;
@@ -127,10 +132,7 @@ public abstract class MosaikMappingModelAdapter<TModel> : MosaikModelAdapter<TMo
 
         sb.Append($" FROM {TableName}");
 
-        if (!string.IsNullOrWhiteSpace(filter))
-        {
-            sb.Append($" WHERE {BuildFilterPredicate(filter)}");
-        }
+        if (!string.IsNullOrWhiteSpace(filter)) sb.Append($" WHERE {BuildFilterPredicate(filter)}");
 
         sb.Append($" ORDER BY {realSortField} {fDirection}");
 

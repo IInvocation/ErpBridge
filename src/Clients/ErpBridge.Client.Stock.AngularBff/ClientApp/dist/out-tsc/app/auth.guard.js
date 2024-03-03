@@ -3,8 +3,6 @@ import { Injectable, Inject, inject } from '@angular/core';
 import { DefaultUrlSerializer } from '@angular/router';
 let AuthPermissionsService = class AuthPermissionsService {
     canActivate(route, state) {
-        console.log(route);
-        console.log(state);
         var result = this.authService.isAuthenticated.getValue();
         if (result)
             return result;

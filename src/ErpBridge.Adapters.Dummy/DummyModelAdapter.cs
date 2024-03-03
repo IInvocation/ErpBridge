@@ -1,8 +1,8 @@
-﻿using ErpBridge.Models.Searching;
-using ErpBridge.Models.Sorting;
-using System.Linq.Dynamic.Core;
+﻿using System.Linq.Dynamic.Core;
 using System.Reflection;
 using System.Text;
+using ErpBridge.Models.Searching;
+using ErpBridge.Models.Sorting;
 
 namespace ErpBridge.Adapters.Dummy;
 
@@ -24,14 +24,24 @@ public abstract class DummyModelAdapter<TModel> : IModelAdapter<TModel>
     /// <value> The models. </value>
     protected List<TModel> Models { get; }
 
+    /// <summary>   Gets or sets the filter fields. </summary>
+    /// <value> The filter fields. </value>
+    protected IEnumerable<string> FilterFields { get; set; }
+
+    /// <summary>   Gets the default sort field. </summary>
+    /// <value> The default sort field. </value>
+    protected abstract string DefaultSortField { get; }
+
     public virtual IEnumerable<TModel> GetAll()
     {
         return Models;
     }
 
     /// <summary>   Gets all asynchronous. </summary>
-    /// <param name="cancellationToken">    (Optional) A token that allows processing to be
-    ///                                     cancelled. </param>
+    /// <param name="cancellationToken">
+    ///     (Optional) A token that allows processing to be
+    ///     cancelled.
+    /// </param>
     /// <returns>   all. </returns>
     public async Task<IEnumerable<TModel>> GetAllAsync(CancellationToken cancellationToken = default)
     {
@@ -46,14 +56,16 @@ public abstract class DummyModelAdapter<TModel> : IModelAdapter<TModel>
     }
 
     /// <summary>   Count asynchronous. </summary>
-    /// <param name="cancellationToken">    (Optional) A token that allows processing to be
-    ///                                     cancelled. </param>
+    /// <param name="cancellationToken">
+    ///     (Optional) A token that allows processing to be
+    ///     cancelled.
+    /// </param>
     /// <returns>   The count. </returns>
     public async Task<long> CountAsync(CancellationToken cancellationToken = default)
     {
         return await Task.FromResult(Models.Count);
     }
-    
+
     /// <summary>   Searches for the first match. </summary>
     /// <param name="sortField">    The sort field. </param>
     /// <param name="direction">    The direction. </param>
@@ -61,12 +73,13 @@ public abstract class DummyModelAdapter<TModel> : IModelAdapter<TModel>
     /// <param name="pageSize">     Size of the page. </param>
     /// <param name="filter">       Specifies the filter. </param>
     /// <returns>   A SearchResult&lt;TModel&gt; </returns>
-    public SearchResult<TModel> Search(string? sortField, SortDirection direction, int pageIndex, int pageSize, string? filter)
+    public SearchResult<TModel> Search(string? sortField, SortDirection direction, int pageIndex, int pageSize,
+        string? filter)
     {
         var realSortField = string.IsNullOrWhiteSpace(sortField) ? DefaultSortField : sortField;
 
-        var filteredModels = string.IsNullOrWhiteSpace(filter) 
-            ? Models.AsQueryable() 
+        var filteredModels = string.IsNullOrWhiteSpace(filter)
+            ? Models.AsQueryable()
             : Models.AsQueryable().Where(BuildFilterPredicate(filter));
 
         var result = filteredModels
@@ -77,7 +90,7 @@ public abstract class DummyModelAdapter<TModel> : IModelAdapter<TModel>
 
         return new SearchResult<TModel>
         {
-            PageIndex = pageIndex, 
+            PageIndex = pageIndex,
             PageSize = pageSize,
             PageCount = filteredModels.Count() / pageSize + (filteredModels.Count() % pageSize > 0 ? 1 : 0),
             Records = result
@@ -90,21 +103,16 @@ public abstract class DummyModelAdapter<TModel> : IModelAdapter<TModel>
     /// <param name="pageIndex">            Zero-based index of the page. </param>
     /// <param name="pageSize">             Size of the page. </param>
     /// <param name="filter">               Specifies the filter. </param>
-    /// <param name="cancellationToken">    (Optional) A token that allows processing to be
-    ///                                     cancelled. </param>
+    /// <param name="cancellationToken">
+    ///     (Optional) A token that allows processing to be
+    ///     cancelled.
+    /// </param>
     /// <returns>   The search. </returns>
-    public Task<SearchResult<TModel>> SearchAsync(string? sortField, SortDirection direction, int pageIndex, int pageSize, string? filter, CancellationToken cancellationToken = default)
+    public Task<SearchResult<TModel>> SearchAsync(string? sortField, SortDirection direction, int pageIndex,
+        int pageSize, string? filter, CancellationToken cancellationToken = default)
     {
         return Task.FromResult(Search(sortField, direction, pageIndex, pageSize, filter));
     }
-
-    /// <summary>   Gets or sets the filter fields. </summary>
-    /// <value> The filter fields. </value>
-    protected IEnumerable<string> FilterFields { get; set; }
-
-    /// <summary>   Gets the default sort field. </summary>
-    /// <value> The default sort field. </value>
-    protected abstract string DefaultSortField { get; }
 
     /// <summary>   Gets the filter fields in this collection. </summary>
     /// <returns>
@@ -115,7 +123,9 @@ public abstract class DummyModelAdapter<TModel> : IModelAdapter<TModel>
     {
         var modelType = typeof(TModel);
         var properties = modelType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-        return (from property in properties where property.PropertyType == typeof(string) && property.CanRead select property.Name).ToList();
+        return (from property in properties
+            where property.PropertyType == typeof(string) && property.CanRead
+            select property.Name).ToList();
     }
 
     /// <summary>   Builds filter predicate. </summary>
@@ -133,6 +143,7 @@ public abstract class DummyModelAdapter<TModel> : IModelAdapter<TModel>
                 sb.Append(" or ");
             sb.Append($"{field}.Contains(\"{filterValue}\")");
         }
+
         return sb.ToString();
     }
 

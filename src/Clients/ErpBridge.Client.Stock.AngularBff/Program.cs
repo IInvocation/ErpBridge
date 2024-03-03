@@ -44,7 +44,7 @@ public class Program
         app.UseDefaultFiles();
         app.UseStaticFiles();
         app.UseOidcProxy();
-        
+
         return app;
     }
 }

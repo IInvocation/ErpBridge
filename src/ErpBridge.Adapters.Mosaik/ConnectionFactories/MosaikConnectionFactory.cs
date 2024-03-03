@@ -8,16 +8,16 @@ namespace ErpBridge.Adapters.Mosaik.ConnectionFactories;
 /// <summary>   A mosaik connection factory. </summary>
 public class MosaikConnectionFactory : IConnectionFactory
 {
-    /// <summary>   Gets options for controlling the operation. </summary>
-    /// <value> The options. </value>
-    protected MosaikOptions Options { get; }
-
     /// <summary>   Constructor. </summary>
     /// <param name="options">  Options for controlling the operation. </param>
     public MosaikConnectionFactory(IOptions<MosaikOptions> options)
     {
         Options = options.Value;
     }
+
+    /// <summary>   Gets options for controlling the operation. </summary>
+    /// <value> The options. </value>
+    protected MosaikOptions Options { get; }
 
     /// <summary>   Creates the connection. </summary>
     /// <returns>   The new connection. </returns>
