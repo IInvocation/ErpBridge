@@ -51,7 +51,7 @@ public abstract class MosaikMappingModelAdapter<TModel> : MosaikModelAdapter<TMo
             if (i > 0)
                 sb.Append(',');
             sb.Append(' ');
-            sb.Append($"[{field.Key}] AS[ {field.Value}]");
+            sb.Append($"[{field.Key}] AS[{field.Value}]");
         }
 
         sb.Append($" FROM {TableName}");

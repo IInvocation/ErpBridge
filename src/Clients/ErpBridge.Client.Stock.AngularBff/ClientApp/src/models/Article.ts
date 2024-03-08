@@ -1,5 +1,5 @@
 export class Article {
-    public Number: string | any;
-    public Name: string | any;
-    public Description: string | any;
+    public number: string | any;
+    public name: string | any;
+    public description: string | any;
 }

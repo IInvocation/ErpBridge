@@ -7,7 +7,6 @@ namespace ErpBridge.Server.WebApi.Controllers;
 
 /// <summary>   A controller for handling articles. </summary>
 [ApiController]
-[Route("[controller]")]
 public class ArticleController : ModelController<Article>
 {
     /// <summary>   Constructor. </summary>

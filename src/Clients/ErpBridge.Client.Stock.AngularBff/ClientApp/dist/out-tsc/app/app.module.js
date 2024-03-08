@@ -15,7 +15,7 @@ import { NavMenuComponent } from '../nav-menu/nav-menu.component';
 import { HomeComponent } from '../home/home.component';
 import { WeatherComponent } from 'src/weather/weather.component';
 import { AuthComponent } from 'src/auth/auth.component';
-import { AuthPermissionsService } from './auth.guard';
+import { AuthPermissionsService } from '../auth/auth.guard';
 import { ArticleComponent } from 'src/article/article.component';
 import { ShowArticleComponent } from 'src/article/show-article/show-article.component';
 import { EditArticleComponent } from 'src/article/edit-article/edit-article.component';

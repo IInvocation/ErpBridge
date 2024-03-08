@@ -9,6 +9,7 @@ namespace ErpBridge.Server.WebApi.Controllers.Base;
 /// <summary>   A controller for handling models. </summary>
 /// <typeparam name="TModel">   Type of the model. </typeparam>
 [Authorize]
+[Route("api/[controller]")]
 public abstract class ModelController<TModel> : ControllerBase
 {
     /// <summary>   Specialized constructor for use only by derived class. </summary>

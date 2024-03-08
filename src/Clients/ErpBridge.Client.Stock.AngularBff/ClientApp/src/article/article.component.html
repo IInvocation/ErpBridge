@@ -4,19 +4,19 @@
     <em>Loading...</em>
 </p>
 
-<table mat-table [dataSource]="articles">
+<table *ngIf="articles?.length" mat-table [dataSource]="articles">
     <ng-container matColumnDef="number">
         <th mat-header-cell *matHeaderCellDef> Nummer </th>
-        <td mat-cell *matCellDef="let article"> {{article.Number}} </td>
+        <td mat-cell *matCellDef="let article"> {{article.number}} </td>
     </ng-container>
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let article"> {{article.Name}} </td>
+        <td mat-cell *matCellDef="let article"> {{article.name}} </td>
     </ng-container>
     <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef> Beschreibung </th>
         <td mat-cell *matCellDef="let article">
-            <pre>{{article.Description}}</pre>
+            <pre>{{article.description}}</pre>
         </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
