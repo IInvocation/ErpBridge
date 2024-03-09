@@ -4,14 +4,12 @@ let ArticleComponent = class ArticleComponent {
     constructor(http, articleService) {
         this.http = http;
         this.articleService = articleService;
-        this.articles = [];
+        this.articlesSource = null;
         this.displayedColumns = ['number', 'name', 'description'];
     }
     ngOnInit() {
-        this.articleService.getAll().subscribe({
-            next: (v) => this.articles = v,
-            error: (e) => console.error(e)
-        });
+        this.articlesSource = this.articleService.getDataSource();
+        this.articlesSource.search('number', 0, 0, 20, '');
     }
 };
 ArticleComponent = __decorate([

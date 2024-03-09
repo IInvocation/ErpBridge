@@ -5,6 +5,9 @@ export class ModelDataSource extends DataSource {
         super(...arguments);
         this.modelsSubject = new BehaviorSubject([]);
         this.loadingSubject = new BehaviorSubject(false);
+        this.length = 0;
+        this.pageIndex = 0;
+        this.pageCount = 0;
         this.loading$ = this.loadingSubject.asObservable();
     }
     connect(_collectionViewer) {
