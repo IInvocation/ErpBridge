@@ -3,7 +3,7 @@ import { Article } from 'src/models/Article';
 import { Observable, of, delay } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ModelDataSource } from 'src/datasources/model.datasource';
-import { ArticleDataSource } from '../datasources/article.datasource';
+import { ArticleDataSource } from './article.datasource';
 import { SearchResult } from 'src/models/SearchResult';
 
 export interface IArticleService {

@@ -1,7 +1,7 @@
 import { catchError, finalize, of } from "rxjs";
 import { ModelDataSource } from "src/datasources/model.datasource";
 import { Article } from "src/models/Article";
-import { IArticleService } from "../article/article.service";
+import { IArticleService } from "./article.service";
 import { SearchResult } from "src/models/SearchResult";
 
 export class ArticleDataSource extends ModelDataSource<Article> {
