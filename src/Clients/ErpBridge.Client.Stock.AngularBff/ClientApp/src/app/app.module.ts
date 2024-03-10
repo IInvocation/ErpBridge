@@ -16,7 +16,6 @@ import { environment } from 'src/environments/environment';
 
 import { NavMenuComponent } from '../nav-menu/nav-menu.component';
 import { HomeComponent } from '../home/home.component';
-import { WeatherComponent } from 'src/weather/weather.component';
 import { AuthComponent } from 'src/auth/auth.component';
 import { AuthPermissionsService } from '../auth/auth.guard';
 
@@ -30,7 +29,6 @@ import { EditArticleComponent } from 'src/article/edit-article/edit-article.comp
     AuthComponent,
     NavMenuComponent,
     HomeComponent,
-    WeatherComponent,
     ArticleComponent,
     ShowArticleComponent,
     EditArticleComponent    
@@ -51,10 +49,6 @@ import { EditArticleComponent } from 'src/article/edit-article/edit-article.comp
     {
       provide: 'IAuthService',
       useClass: environment.authService
-    },
-    {
-      provide: 'IWeatherService',
-      useClass: environment.weatherService
     },
     {
       provide: 'IArticleService',

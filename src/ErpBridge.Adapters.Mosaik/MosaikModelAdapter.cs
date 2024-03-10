@@ -12,7 +12,6 @@ namespace ErpBridge.Adapters.Mosaik;
 /// <param name="connectionFactory">    The connection factory. </param>
 public abstract class MosaikModelAdapter<TModel>(IConnectionFactory connectionFactory) : IModelAdapter<TModel>
 {
-
     /// <summary>   Gets the connection factory. </summary>
     /// <value> The connection factory. </value>
     public IConnectionFactory ConnectionFactory { get; } = connectionFactory;
@@ -100,8 +99,10 @@ public abstract class MosaikModelAdapter<TModel>(IConnectionFactory connectionFa
     /// <param name="pageIndex">            Zero-based index of the page. </param>
     /// <param name="pageSize">             Size of the page. </param>
     /// <param name="filter">               Specifies the filter. </param>
-    /// <param name="cancellationToken">    (Optional) A token that allows processing to be
-    ///                                     cancelled. </param>
+    /// <param name="cancellationToken">
+    ///     (Optional) A token that allows processing to be
+    ///     cancelled.
+    /// </param>
     /// <returns>   The search. </returns>
     public async Task<SearchResult<TModel>> SearchAsync(string sortField, SortDirection direction, int pageIndex,
         int pageSize, string filter, CancellationToken cancellationToken = default)
