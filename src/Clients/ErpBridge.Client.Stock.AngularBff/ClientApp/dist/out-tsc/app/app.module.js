@@ -1,6 +1,7 @@
 import { __decorate } from "tslib";
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { environment } from 'src/environments/environment';
 import { NavMenuComponent } from '../nav-menu/nav-menu.component';
 import { HomeComponent } from '../home/home.component';
@@ -36,6 +38,7 @@ AppModule = __decorate([
         imports: [
             HttpClientModule,
             BrowserModule,
+            BrowserAnimationsModule,
             AppRoutingModule,
             FormsModule,
             MatInputModule,
@@ -57,6 +60,7 @@ AppModule = __decorate([
                 provide: 'IArticleService',
                 useClass: environment.articleService
             },
+            provideAnimationsAsync(),
             AuthPermissionsService
         ],
         bootstrap: [AppComponent]

@@ -1,7 +1,9 @@
 import { __decorate } from "tslib";
 import { Injectable } from '@angular/core';
 import { of, delay } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 import { ArticleDataSource } from './article.datasource';
+import { SearchResult } from 'src/models/SearchResult';
 let ArticleService = class ArticleService {
     constructor(httpClient) {
         this.httpClient = httpClient;
@@ -14,7 +16,16 @@ let ArticleService = class ArticleService {
         return x;
     }
     search(sortField, direction, pageIndex, pageSize, filter) {
-        throw new Error('Method not implemented.');
+        var x = this.httpClient.get('api/Article/Search', {
+            params: new HttpParams()
+                .set('sortField', sortField)
+                .set('direction', direction)
+                .set('pageIndex', pageIndex)
+                .set('pageSize', pageSize)
+                .set('filter', filter)
+        });
+        console.log(x);
+        return x;
     }
 };
 ArticleService = __decorate([
@@ -26,6 +37,31 @@ export { ArticleService };
 let ArticleMockService = class ArticleMockService {
     constructor() {
         this.samples = [{
+                number: "103001",
+                name: "GENO-EFK 50 µm",
+                description: "GENO-EFK 50 µm mit:\r\n2 x Filterkerze (50 µm)\r\n2 x Filterglocke\r\n1 x Dichtungsgummi"
+            },
+            {
+                number: "103002",
+                name: "GENO-EFK 80 µm",
+                description: "GENO-EFK 50 µm mit:\r\n2 x Filterkerze (80 µm)\r\n2 x Filterglocke\r\n1 x Dichtungsgummi"
+            },
+            {
+                number: "189100",
+                name: "Enthärtungsanlage Typ softliQ:SD18",
+                description: "Enthärtungsanlage Typ softliQ:SD18\r\nNennkapazität: 18 m³"
+            },
+            {
+                number: "189200",
+                name: "Enthärtungsanlage Typ softliQ:SD21",
+                description: "Enthärtungsanlage Typ softliQ:SD21\r\nNennkapazität: 21 m³"
+            },
+            {
+                number: "189300",
+                name: "Enthärtungsanlage Typ softliQ:SD23",
+                description: "Enthärtungsanlage Typ softliQ:SD2\r\nNennkapazität: 23 m³"
+            }];
+        this.filterSamples = [{
                 number: "82-730-8312",
                 name: "TITANIUM DIOXIDE",
                 description: "Computerized Tomography (CT Scan) of Left Femur"
@@ -431,37 +467,39 @@ let ArticleMockService = class ArticleMockService {
         return new ArticleDataSource(this);
     }
     getAll() {
-        let articles = [
-            {
-                number: "103001",
-                name: "GENO-EFK 50 µm",
-                description: "GENO-EFK 50 µm mit:\r\n2 x Filterkerze (50 µm)\r\n2 x Filterglocke\r\n1 x Dichtungsgummi"
-            },
-            {
-                number: "103002",
-                name: "GENO-EFK 80 µm",
-                description: "GENO-EFK 50 µm mit:\r\n2 x Filterkerze (80 µm)\r\n2 x Filterglocke\r\n1 x Dichtungsgummi"
-            },
-            {
-                number: "189100",
-                name: "Enthärtungsanlage Typ softliQ:SD18",
-                description: "Enthärtungsanlage Typ softliQ:SD18\r\nNennkapazität: 18 m³"
-            },
-            {
-                number: "189200",
-                name: "Enthärtungsanlage Typ softliQ:SD21",
-                description: "Enthärtungsanlage Typ softliQ:SD21\r\nNennkapazität: 21 m³"
-            },
-            {
-                number: "189300",
-                name: "Enthärtungsanlage Typ softliQ:SD23",
-                description: "Enthärtungsanlage Typ softliQ:SD2\r\nNennkapazität: 23 m³"
-            }
-        ];
-        return of(articles).pipe(delay(1000));
+        return of(this.samples).pipe(delay(1000));
     }
     search(sortField, direction, pageIndex, pageSize, filter) {
-        return of(this.samples).pipe(delay(1000));
+        var filtered = filter ? this.filterSamples.filter((article) => article.number.includes(filter) || article.name.includes(filter)) : this.filterSamples;
+        var sorted = filtered.sort(this.by(sortField, direction));
+        var res = new SearchResult();
+        res.pageIndex = pageIndex;
+        res.pageCount = sorted.length / pageSize;
+        res.pageSize = pageSize;
+        res.recordCount = sorted.length;
+        res.records = sorted.slice(pageIndex * pageSize, (pageIndex * pageSize) + pageSize);
+        return of(res).pipe(delay(100));
+    }
+    by(property, order) {
+        return (a, b) => {
+            if (a[property] > b[property]) {
+                if (order == 0) {
+                    return 1;
+                }
+                else {
+                    return -1;
+                }
+            }
+            else if (a[property] < b[property]) {
+                if (order == 0) {
+                    return -1;
+                }
+                else {
+                    return 1;
+                }
+            }
+            return 0;
+        };
     }
 };
 ArticleMockService = __decorate([

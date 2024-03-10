@@ -1,9 +1,9 @@
-import { Injectable, provideZoneChangeDetection } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Article } from 'src/models/Article';
 import { Observable, of, delay } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ModelDataSource } from 'src/datasources/model.datasource';
-import { ArticleDataSource } from './article.datasource';
+import { ArticleDataSource } from '../datasources/article.datasource';
 import { SearchResult } from 'src/models/SearchResult';
 
 export interface IArticleService {
@@ -29,7 +29,15 @@ export class ArticleService implements IArticleService {
   }
   
   search(sortField: string, direction: number, pageIndex: number, pageSize: number, filter: string): Observable<SearchResult<Article>> {
-    throw new Error('Method not implemented.');
+    var x = this.httpClient.get<SearchResult<Article>>('api/Article/Search', {
+      params: new HttpParams()
+                .set('sortField', sortField)
+                .set('direction', direction)
+                .set('pageIndex', pageIndex)
+                .set('pageSize', pageSize)
+                .set('filter', filter)
+    });
+    return x;
   }
 }
 
@@ -47,14 +55,39 @@ export class ArticleMockService implements IArticleService {
   }
 
   search(sortField: string, direction: number, pageIndex: number, pageSize: number, filter: string): Observable<SearchResult<Article>> {
+    var filtered = filter ? this.filterSamples.filter((article) => article.number.includes(filter) || article.name.includes(filter)) : this.filterSamples;
+    var sorted = filtered.sort(this.by(sortField, direction));
+
     var res = new SearchResult(); 
     res.pageIndex = pageIndex;
-    res.pageCount = this.filterSamples.length / pageSize;
+    res.pageCount = sorted.length / pageSize;
     res.pageSize = pageSize;
-    res.length = this.filterSamples.length;
-    res.records = this.filterSamples.slice(pageIndex * pageSize, (pageIndex * pageSize) + pageSize);
+    res.recordCount = sorted.length;    
+    res.records = sorted.slice(pageIndex * pageSize, (pageIndex * pageSize) + pageSize);
 
     return of(res).pipe(delay(100));
+  }
+
+  by(property: string, order: number): (a: any, b: any) => number {
+    return (a,b) => {
+      if (a[property] > b[property]) {
+        if (order == 0) {
+          return 1;
+        }
+        else {
+          return -1;
+        }
+      }
+      else if (a[property] < b[property]) {
+        if (order == 0) {
+          return -1;
+        }
+        else {
+          return 1;
+        }
+      }
+      return 0;
+    }
   }
 
   samples: Article[] = [{

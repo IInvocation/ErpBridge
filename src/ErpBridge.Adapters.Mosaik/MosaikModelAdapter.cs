@@ -89,7 +89,8 @@ public abstract class MosaikModelAdapter<TModel>(IConnectionFactory connectionFa
             PageIndex = pageIndex,
             PageSize = pageSize,
             PageCount = count / pageSize + (count % pageSize > 0 ? 1 : 0),
-            Records = models
+            Records = models,
+            RecordCount = count
         };
     }
 
@@ -117,7 +118,8 @@ public abstract class MosaikModelAdapter<TModel>(IConnectionFactory connectionFa
             PageIndex = pageIndex,
             PageSize = pageSize,
             PageCount = count / pageSize + (count % pageSize > 0 ? 1 : 0),
-            Records = lModels
+            Records = lModels,
+            RecordCount = count
         };
     }
 

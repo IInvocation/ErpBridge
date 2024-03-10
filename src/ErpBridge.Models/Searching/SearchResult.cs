@@ -19,4 +19,8 @@ public class SearchResult<TModel>
     /// <summary>   Gets or sets the records. </summary>
     /// <value> The records. </value>
     public IEnumerable<TModel> Records { get; set; }
+
+    /// <summary>   Gets or sets the number of records. </summary>
+    /// <value> The number of records. </value>
+    public int RecordCount { get; set; }
 }

@@ -93,7 +93,8 @@ public abstract class DummyModelAdapter<TModel> : IModelAdapter<TModel>
             PageIndex = pageIndex,
             PageSize = pageSize,
             PageCount = filteredModels.Count() / pageSize + (filteredModels.Count() % pageSize > 0 ? 1 : 0),
-            Records = result
+            Records = result,
+            RecordCount = filteredModels.Count()
         };
     }
 
