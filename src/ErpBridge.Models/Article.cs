@@ -14,4 +14,8 @@ public class Article
     /// <summary>   Gets or sets the description. </summary>
     /// <value> The description. </value>
     public string Description { get; set; }
+
+    /// <summary>   Gets or sets the stock location. </summary>
+    /// <value> The stock location. </value>
+    public string StockLocation { get; set; }
 }

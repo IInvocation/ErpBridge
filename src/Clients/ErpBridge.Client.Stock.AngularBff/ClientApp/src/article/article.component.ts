@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { Article } from 'src/models/Article';
-import { IArticleService } from './article.service';
 import { ModelDataSource } from 'src/datasources/model.datasource';
 import { MatPaginator } from '@angular/material/paginator';
 import { debounceTime, distinctUntilChanged, fromEvent, merge, tap } from 'rxjs';
 import { MatSort } from '@angular/material/sort';
+import { IDataService } from 'src/dataServices/IDataService';
 
 @Component({
   selector: 'app-article',
@@ -13,13 +13,19 @@ import { MatSort } from '@angular/material/sort';
 })
 export class ArticleComponent implements OnInit, AfterViewInit {
   articlesSource: ModelDataSource<Article> = null as any;
-  public displayedColumns = ['number', 'name', 'description'];
+  public displayedColumns = [
+    'number', 
+    'name', 
+    //'description',
+    'stockLocation',
+    'actions'
+  ];
   
   @ViewChild(MatPaginator) paginator: MatPaginator = null as any;
   @ViewChild(MatSort) sort: MatSort = null as any;
   @ViewChild('input') input: ElementRef = null as any;
 
-  constructor(@Inject('IArticleService') private articleService: IArticleService) {
+  constructor(@Inject('IArticleService') private articleService: IDataService<Article>) {
   }
 
   ngOnInit(): void {

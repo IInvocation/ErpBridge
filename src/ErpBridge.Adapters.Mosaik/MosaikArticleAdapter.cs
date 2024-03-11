@@ -18,7 +18,8 @@ public class MosaikArticleAdapter : MosaikMappingModelAdapter<Article>, IArticle
     {
         new KeyValuePair<string, string>("Nummer", "Number"),
         new KeyValuePair<string, string>("Kurztext", "Name"),
-        new KeyValuePair<string, string>("Dimensionstext", "Description")
+        new KeyValuePair<string, string>("Dimensionstext", "Description"),
+        new KeyValuePair<string, string>("Lagerplatz", "StockLocation")
     });
 
     /// <summary>   Gets the default sort field. </summary>
@@ -32,6 +33,6 @@ public class MosaikArticleAdapter : MosaikMappingModelAdapter<Article>, IArticle
     /// </returns>
     protected override IEnumerable<string> GetFilterFields()
     {
-        return Fields.Select(f => f.Value).Except(new[] { "Dimensionstext" });
+        return Fields.Select(f => f.Value).Except(new[] { "Dimensionstext", "Lagerplatz" });
     }
 }

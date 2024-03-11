@@ -1,5 +1,5 @@
 import { AuthMockService } from 'src/auth/auth.service';
-import { ArticleMockService } from 'src/article/article.service';
+import { ArticleMockService } from 'src/article/mock.article.service';
 
 export const environment = {
     production: false,

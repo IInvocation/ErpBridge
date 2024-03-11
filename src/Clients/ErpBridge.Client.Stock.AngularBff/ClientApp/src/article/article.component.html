@@ -19,6 +19,17 @@
             <pre>{{article.description}}</pre>
         </td>
     </ng-container>
+    <ng-container matColumnDef="stockLocation">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Lagerplatz</th>
+        <td mat-cell *matCellDef="let article"> {{article.stockLocation}} </td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Aktionen</th>
+        <td mat-cell *matCellDef="let article">
+            <a href="#" routerLink="{{article.number}}/show"><button mat-icon-button><mat-icon>visibility</mat-icon></button></a>
+            <a href="#" routerLink="{{article.number}}/edit"><button mat-icon-button><mat-icon>edit</mat-icon></button></a>
+        </td>
+    </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
 </mat-table>

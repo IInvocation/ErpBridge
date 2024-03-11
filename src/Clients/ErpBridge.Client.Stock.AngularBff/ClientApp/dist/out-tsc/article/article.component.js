@@ -7,7 +7,14 @@ let ArticleComponent = class ArticleComponent {
     constructor(articleService) {
         this.articleService = articleService;
         this.articlesSource = null;
-        this.displayedColumns = ['number', 'name', 'description'];
+        this.displayedColumns = [
+            'number',
+            'name',
+            //'description',
+            'stockRow',
+            'stockRack',
+            'stockCase'
+        ];
         this.paginator = null;
         this.sort = null;
         this.input = null;

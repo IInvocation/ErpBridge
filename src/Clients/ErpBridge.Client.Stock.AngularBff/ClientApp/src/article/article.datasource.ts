@@ -1,7 +1,7 @@
 import { catchError, finalize, of } from "rxjs";
+import { IDataService } from "src/dataServices/IDataService";
 import { ModelDataSource } from "src/datasources/model.datasource";
 import { Article } from "src/models/Article";
-import { IArticleService } from "./article.service";
 import { SearchResult } from "src/models/SearchResult";
 
 export class ArticleDataSource extends ModelDataSource<Article> {
@@ -23,7 +23,7 @@ export class ArticleDataSource extends ModelDataSource<Article> {
     });
   }
 
-  constructor(private articleService: IArticleService) {
+  constructor(private articleService: IDataService<Article>) {
     super();
   }
 }

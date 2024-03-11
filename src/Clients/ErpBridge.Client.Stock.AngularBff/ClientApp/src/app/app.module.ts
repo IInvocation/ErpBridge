@@ -11,6 +11,8 @@ import { MatInputModule } from '@angular/material/input'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatSortModule } from '@angular/material/sort'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { environment } from 'src/environments/environment';
 
@@ -22,6 +24,8 @@ import { AuthPermissionsService } from '../auth/auth.guard';
 import { ArticleComponent } from 'src/article/article.component';
 import { ShowArticleComponent } from 'src/article/show-article/show-article.component';
 import { EditArticleComponent } from 'src/article/edit-article/edit-article.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -43,7 +47,11 @@ import { EditArticleComponent } from 'src/article/edit-article/edit-article.comp
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    NgbModule
   ],
   providers: [
     {
