@@ -63,7 +63,15 @@ public static class OpenApiStartup
     /// <returns>   A WebApplication. </returns>
     public static WebApplication UseOpenApi(this WebApplication application)
     {
-        if (!application.Environment.IsDevelopment() && !application.Environment.IsStaging()) return application;
+        var swaggerOptions = application.Configuration.GetSection("Swagger").Get<SwaggerOptions>() ??
+                         throw new InvalidConfigurationException();
+
+        if (!swaggerOptions.Enable)
+        {
+            return application;
+        }
+
+        // if (!application.Environment.IsDevelopment() && !application.Environment.IsStaging()) return application;
 
         application.UseSwagger();
         application.UseSwaggerUI(options =>

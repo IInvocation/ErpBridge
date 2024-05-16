@@ -3,4 +3,7 @@ export class Article {
     public name: string | any;
     public description: string | any;
     public stockLocation: string | any;
+    public listPrice: number | any;
+    public priceGroup: string |any;
+    public stockAmount: number | any;
 }

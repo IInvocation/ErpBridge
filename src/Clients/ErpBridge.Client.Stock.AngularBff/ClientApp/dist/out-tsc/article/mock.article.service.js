@@ -2,6 +2,7 @@ import { __decorate } from "tslib";
 import { Injectable } from '@angular/core';
 import { ArticleDataSource } from './article.datasource';
 import { MockDataService } from 'src/dataServices/MockDataService';
+import { of } from 'rxjs';
 let ArticleMockService = class ArticleMockService extends MockDataService {
     constructor() {
         super(...arguments);
@@ -10,17 +11,19 @@ let ArticleMockService = class ArticleMockService extends MockDataService {
                 number: "103001",
                 name: "GENO-EFK 50 µm",
                 description: "GENO-EFK 50 µm mit:\r\n2 x Filterkerze (50 µm)\r\n2 x Filterglocke\r\n1 x Dichtungsgummi",
-                stockRow: "1",
-                stockRack: "1",
-                stockCase: "1"
+                stockLocation: "1, 1, 1",
+                listPrice: 50,
+                priceGroup: 'RG-A',
+                stockAmount: 5
             },
             {
                 number: "103002",
                 name: "GENO-EFK 80 µm",
                 description: "GENO-EFK 50 µm mit:\r\n2 x Filterkerze (80 µm)\r\n2 x Filterglocke\r\n1 x Dichtungsgummi",
-                stockRow: "1",
-                stockRack: "1",
-                stockCase: "2"
+                stockLocation: "1, 1, 2",
+                listPrice: 50,
+                priceGroup: 'RG-A',
+                stockAmount: 5
             }
         ];
         this.samples_softeners = [
@@ -28,41 +31,46 @@ let ArticleMockService = class ArticleMockService extends MockDataService {
                 number: "189100",
                 name: "Enthärtungsanlage Typ softliQ:SD18",
                 description: "Enthärtungsanlage Typ softliQ:SD18\r\nNennkapazität: 18 m³",
-                stockRow: "2",
-                stockRack: "1",
-                stockCase: "1"
+                stockLocation: "2, 1, 1",
+                listPrice: 50,
+                priceGroup: 'RG-A',
+                stockAmount: 5
             },
             {
                 number: "189200",
                 name: "Enthärtungsanlage Typ softliQ:SD21",
                 description: "Enthärtungsanlage Typ softliQ:SD21\r\nNennkapazität: 21 m³",
-                stockRow: "2",
-                stockRack: "1",
-                stockCase: "2"
+                stockLocation: "2, 1, 2",
+                listPrice: 50,
+                priceGroup: 'RG-A',
+                stockAmount: 5
             },
             {
                 number: "189300",
                 name: "Enthärtungsanlage Typ softliQ:SD23",
                 description: "Enthärtungsanlage Typ softliQ:SD23\r\nNennkapazität: 23 m³",
-                stockRow: "2",
-                stockRack: "1",
-                stockCase: "3"
+                stockLocation: "2, 1, 3",
+                listPrice: 50,
+                priceGroup: 'RG-A',
+                stockAmount: 5
             },
             {
                 number: "187400",
                 name: "Enthärtungsanlage Typ softliQ:MD32",
                 description: "Enthärtungsanlage Typ softliQ:MD32\r\nNennkapazität: 32 m³",
-                stockRow: "2",
-                stockRack: "2",
-                stockCase: "1"
+                stockLocation: "2, 2, 1",
+                listPrice: 50,
+                priceGroup: 'RG-A',
+                stockAmount: 5
             },
             {
                 number: "187450",
                 name: "Enthärtungsanlage Typ softliQ:MD38",
                 description: "Enthärtungsanlage Typ softliQ:MD38\r\nNennkapazität: 38 m³",
-                stockRow: "2",
-                stockRack: "2",
-                stockCase: "2"
+                stockLocation: "2, 2, 2",
+                listPrice: 50,
+                priceGroup: 'RG-A',
+                stockAmount: 5
             }
         ];
         this.samples_add = [
@@ -70,20 +78,26 @@ let ArticleMockService = class ArticleMockService extends MockDataService {
                 number: "56606",
                 name: "CO²-Flaschenfüllung Mietflasche Abholung",
                 description: "CO² von Westfalen",
-                stockRow: "AG",
-                stockRack: null,
-                stockCase: null
+                stockLocation: "AG",
+                listPrice: 50,
+                priceGroup: 'RG-A',
+                stockAmount: 5
             },
             {
                 number: "200200",
                 name: "Mischbettharz Entsalzung",
                 description: "Mischbettharz Entsalzung, 25L  Sack",
-                stockRow: "NS",
-                stockRack: null,
-                stockCase: null
+                stockLocation: "NS",
+                listPrice: 50,
+                priceGroup: 'RG-A',
+                stockAmount: 5
             }
         ];
         this.samples = this.samples_efk.concat(this.samples_softeners, this.samples_add);
+    }
+    get(pk) {
+        var res = this.samples.filter((article) => article.number.includes(pk));
+        return of(res[0]);
     }
     filter(records, filterValue) {
         return records.filter((article) => article.number.includes(filterValue) || article.name.includes(filterValue));

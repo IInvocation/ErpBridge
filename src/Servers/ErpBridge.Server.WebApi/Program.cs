@@ -1,4 +1,5 @@
 using ErpBridge.Server.WebApi.Startup;
+using Microsoft.Extensions.Configuration;
 
 namespace ErpBridge.Server.WebApi;
 
@@ -29,6 +30,7 @@ public class Program
         services.AddAuthentication(configuration);
         services.AddRestApi(configuration);
         services.AddOpenApi(configuration);
+        services.AddRbacProtection(configuration);
 
         return builder;
     }

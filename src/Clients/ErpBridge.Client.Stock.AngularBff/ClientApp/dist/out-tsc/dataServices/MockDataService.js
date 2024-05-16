@@ -1,6 +1,9 @@
 import { delay, of } from 'rxjs';
 import { SearchResult } from 'src/models/SearchResult';
 export class MockDataService {
+    update(item) {
+        return of("OK");
+    }
     getAll() {
         return of(this.samples).pipe(delay(100));
     }

@@ -11,9 +11,11 @@ let ArticleComponent = class ArticleComponent {
             'number',
             'name',
             //'description',
-            'stockRow',
-            'stockRack',
-            'stockCase'
+            'stockLocation',
+            'listPrice',
+            'priceGroup',
+            'stockAmount',
+            'actions'
         ];
         this.paginator = null;
         this.sort = null;
@@ -58,7 +60,7 @@ ArticleComponent = __decorate([
     Component({
         selector: 'app-article',
         templateUrl: './article.component.html',
-        styleUrl: './article.component.scss'
+        styleUrl: './article.component.scss',
     }),
     __param(0, Inject('IArticleService'))
 ], ArticleComponent);

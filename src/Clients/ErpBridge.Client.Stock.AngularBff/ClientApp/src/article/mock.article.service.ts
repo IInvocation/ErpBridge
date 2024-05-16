@@ -3,11 +3,18 @@ import { Article } from 'src/models/Article';
 import { ModelDataSource } from 'src/datasources/model.datasource';
 import { ArticleDataSource } from './article.datasource';
 import { MockDataService } from 'src/dataServices/MockDataService';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticleMockService extends MockDataService<Article> {
+
+  override get(pk: string): Observable<Article> {
+    var res = this.samples.filter((article) => article.number.includes(pk));
+    return of(res[0]);
+  }
+
   override filter(records: Article[], filterValue: string): Article[] {
     return records.filter((article) => article.number.includes(filterValue) || article.name.includes(filterValue));
   }
@@ -21,13 +28,19 @@ export class ArticleMockService extends MockDataService<Article> {
       number: "103001",
       name: "GENO-EFK 50 µm",
       description: "GENO-EFK 50 µm mit:\r\n2 x Filterkerze (50 µm)\r\n2 x Filterglocke\r\n1 x Dichtungsgummi",
-      stockLocation: "1, 1, 1"
+      stockLocation: "1, 1, 1",
+      listPrice: 50,
+      priceGroup: 'RG-A',
+      stockAmount: 5
     },
     {
       number: "103002",
       name: "GENO-EFK 80 µm",
       description: "GENO-EFK 50 µm mit:\r\n2 x Filterkerze (80 µm)\r\n2 x Filterglocke\r\n1 x Dichtungsgummi",
-      stockLocation: "1, 1, 2"
+      stockLocation: "1, 1, 2",
+      listPrice: 50,
+      priceGroup: 'RG-A',
+      stockAmount: 5
     }
   ]
 
@@ -36,31 +49,46 @@ export class ArticleMockService extends MockDataService<Article> {
       number: "189100",
       name: "Enthärtungsanlage Typ softliQ:SD18",
       description: "Enthärtungsanlage Typ softliQ:SD18\r\nNennkapazität: 18 m³",
-      stockLocation: "2, 1, 1"
+      stockLocation: "2, 1, 1",
+      listPrice: 50,
+      priceGroup: 'RG-A',
+      stockAmount: 5
     },
     {
       number: "189200",
       name: "Enthärtungsanlage Typ softliQ:SD21",
       description: "Enthärtungsanlage Typ softliQ:SD21\r\nNennkapazität: 21 m³",
-      stockLocation: "2, 1, 2"
+      stockLocation: "2, 1, 2",
+      listPrice: 50,
+      priceGroup: 'RG-A',
+      stockAmount: 5
     },
     {
       number: "189300",
       name: "Enthärtungsanlage Typ softliQ:SD23",
       description: "Enthärtungsanlage Typ softliQ:SD23\r\nNennkapazität: 23 m³",
-      stockLocation: "2, 1, 3"
+      stockLocation: "2, 1, 3",
+      listPrice: 50,
+      priceGroup: 'RG-A',
+      stockAmount: 5
     },
     {
       number: "187400",
       name: "Enthärtungsanlage Typ softliQ:MD32",
       description: "Enthärtungsanlage Typ softliQ:MD32\r\nNennkapazität: 32 m³",
-      stockLocation: "2, 2, 1"
+      stockLocation: "2, 2, 1",
+      listPrice: 50,
+      priceGroup: 'RG-A',
+      stockAmount: 5
     },
     {
       number: "187450",
       name: "Enthärtungsanlage Typ softliQ:MD38",
       description: "Enthärtungsanlage Typ softliQ:MD38\r\nNennkapazität: 38 m³",
-      stockLocation: "2, 2, 2"
+      stockLocation: "2, 2, 2",
+      listPrice: 50,
+      priceGroup: 'RG-A',
+      stockAmount: 5
     }
   ];
 
@@ -69,13 +97,19 @@ export class ArticleMockService extends MockDataService<Article> {
       number: "56606",
       name: "CO²-Flaschenfüllung Mietflasche Abholung",
       description: "CO² von Westfalen",
-      stockLocation: "AG"
+      stockLocation: "AG",
+      listPrice: 50,
+      priceGroup: 'RG-A',
+      stockAmount: 5
     },
     {
       number: "200200",
       name: "Mischbettharz Entsalzung",
       description: "Mischbettharz Entsalzung, 25L  Sack",
-      stockLocation: "NS"
+      stockLocation: "NS",
+      listPrice: 50,
+      priceGroup: 'RG-A',
+      stockAmount: 5
     }
   ]
 

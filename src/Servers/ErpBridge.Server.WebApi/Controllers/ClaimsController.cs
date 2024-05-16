@@ -11,7 +11,8 @@ public class ClaimsController : ControllerBase
     [HttpGet("GetAll")]
     public virtual IEnumerable<KeyValuePair<string, string>> GetAll()
     {
-        return User.Claims
+        var claims = User.Claims;
+        return claims
             .Select(c => new KeyValuePair<string, string>(c.Type, c.Value));
     }
 }

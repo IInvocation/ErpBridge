@@ -5,6 +5,9 @@
   "projects": {
     "ClientApp": {
       "projectType": "application",
+      "i18n": {
+        "sourceLocale": "de-DE"
+      },
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"

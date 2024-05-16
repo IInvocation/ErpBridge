@@ -9,7 +9,7 @@ import { IDataService } from 'src/dataServices/IDataService';
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
-  styleUrl: './article.component.scss'
+  styleUrl: './article.component.scss',
 })
 export class ArticleComponent implements OnInit, AfterViewInit {
   articlesSource: ModelDataSource<Article> = null as any;
@@ -18,6 +18,9 @@ export class ArticleComponent implements OnInit, AfterViewInit {
     'name', 
     //'description',
     'stockLocation',
+    'listPrice',
+    'priceGroup',
+    'stockAmount',
     'actions'
   ];
   

@@ -15,12 +15,18 @@ a {
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
-  }  
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+  } 
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.view-icon {
+  color:forestgreen;
+}
 
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+.edit-icon {
+  color:goldenrod;
+}
+
+.delete-icon {
+  color:indianred;
+}

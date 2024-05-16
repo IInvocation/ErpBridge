@@ -8,26 +8,35 @@ namespace ErpBridge.Server.WebApi.Controllers.Base;
 
 /// <summary>   A controller for handling models. </summary>
 /// <typeparam name="TModel">   Type of the model. </typeparam>
+/// <remarks>   Specialized constructor for use only by derived class. </remarks>
+/// <param name="logger">   The logger. </param>
+/// <param name="adapter">  The adapter. </param>
 [Authorize]
 [Route("api/[controller]")]
-public abstract class ModelController<TModel> : ControllerBase
+public abstract class ModelController<TModel>(ILogger<ModelController<TModel>> logger, IModelAdapter<TModel> adapter) : ControllerBase
 {
-    /// <summary>   Specialized constructor for use only by derived class. </summary>
-    /// <param name="logger">   The logger. </param>
-    /// <param name="adapter">  The adapter. </param>
-    protected ModelController(ILogger<ModelController<TModel>> logger, IModelAdapter<TModel> adapter)
-    {
-        Logger = logger;
-        Adapter = adapter;
-    }
 
     /// <summary>   Gets the logger. </summary>
     /// <value> The logger. </value>
-    public ILogger<ModelController<TModel>> Logger { get; }
+    public ILogger<ModelController<TModel>> Logger { get; } = logger;
 
     /// <summary>   Gets the adapter. </summary>
     /// <value> The adapter. </value>
-    public IModelAdapter<TModel> Adapter { get; }
+    public IModelAdapter<TModel> Adapter { get; } = adapter;
+
+    [HttpGet("{primaryKey}")]
+    public TModel? Get(string primaryKey)
+    {
+        return Adapter.GetByPrimaryKey(primaryKey);
+    }
+
+    [HttpPost]
+    public virtual IActionResult Update(TModel model)
+    {
+        Adapter.Update(model);
+        return Ok(model);
+    }
+
 
     /// <summary>
     ///     (An Action that handles HTTP GET requests) gets all items in this collection.

@@ -18,4 +18,16 @@ public class Article
     /// <summary>   Gets or sets the stock location. </summary>
     /// <value> The stock location. </value>
     public string StockLocation { get; set; }
+
+    /// <summary>   Gets or sets the list price. </summary>
+    /// <value> The list price. </value>
+    public decimal? ListPrice { get; set; }
+
+    /// <summary>   Gets or sets the group the price belongs to. </summary>
+    /// <value> The price group. </value>
+    public string PriceGroup { get; set; }
+
+    /// <summary>   Gets or sets the stock amount. </summary>
+    /// <value> The stock amount. </value>
+    public double? StockAmount { get; set; }
 }

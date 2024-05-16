@@ -4,6 +4,10 @@ import { SearchResult } from 'src/models/SearchResult';
 import { IDataService } from './IDataService';
 
 export abstract class MockDataService<T> implements IDataService<T> {
+
+    update(item: T): Observable<any> {
+        return of("OK");
+    }
     getAll(): Observable<T[]> {
         return of(this.samples).pipe(delay(100));
     }
@@ -43,6 +47,8 @@ export abstract class MockDataService<T> implements IDataService<T> {
             return 0;
         };
     }
+
+    abstract get(pk: any): Observable<T>;
 
     abstract getDataSource(): ModelDataSource<T>;
 

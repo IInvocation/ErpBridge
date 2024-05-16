@@ -11,15 +11,20 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.1" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols" Version="6.35.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ErpBridge.Adapters.Dummy\ErpBridge.Adapters.Dummy.csproj" />
-    <ProjectReference Include="..\..\ErpBridge.Adapters.Mosaik\ErpBridge.Adapters.Mosaik.csproj" />
-    <ProjectReference Include="..\..\ErpBridge.Adapters\ErpBridge.Adapters.csproj" />
+    <ProjectReference Include="..\..\Adapters\ErpBridge.Adapters.Dummy\ErpBridge.Adapters.Dummy.csproj" />
+    <ProjectReference Include="..\..\Adapters\ErpBridge.Adapters.Mosaik\ErpBridge.Adapters.Mosaik.csproj" />
+    <ProjectReference Include="..\..\Adapters\ErpBridge.Adapters\ErpBridge.Adapters.csproj" />
     <ProjectReference Include="..\..\ErpBridge.Models\ErpBridge.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AuthorizationFilters\" />
   </ItemGroup>
 
 </Project>

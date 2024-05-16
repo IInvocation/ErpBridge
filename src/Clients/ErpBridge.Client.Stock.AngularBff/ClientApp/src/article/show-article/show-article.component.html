@@ -1,1 +1,54 @@
-<p>show-article works!</p>
+<h1>Artikel ansehen</h1>
+
+<div>
+    <strong>Nummer:</strong>
+    <p>{{ article?.number }}</p>
+</div>
+
+<div>
+    <strong>Name:</strong>
+    <p>{{ article?.name }}</p>
+</div>
+
+<div>
+    <strong>Lagerplatz:</strong>
+    <p>{{ article?.stockLocation }}</p>
+</div>
+
+<div>
+    <strong>Listenpreis:</strong>
+    <p>{{ article?.listPrice | currency:'EUR' }}</p>
+</div>
+
+<div>
+    <strong>Rabattgruppe:</strong>
+    <p>{{ article?.priceGroup }}</p>
+</div>
+
+<div>
+    <strong>Lagerbestand:</strong>
+    <p>{{ article?.stockAmount }}</p>
+</div>
+
+<div>
+    <strong>Beschreibung:</strong>
+    <pre>{{ article?.description }}</pre>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Aktionen</h2>
+    </div>
+    <div class="panel-body">
+        <a [routerLink]="['/article']">
+            <button mat-icon-button #tooltip="matTooltip" matTooltip="Liste aufrufen">
+                <mat-icon class="view-icon">list</mat-icon>
+            </button>
+        </a>
+        <a routerLink="/article/{{article?.number}}/edit">
+            <button mat-icon-button #tooltip="matTooltip" matTooltip="Bearbeiten">
+                <mat-icon class="edit-icon">edit</mat-icon>
+            </button>
+        </a>
+    </div>
+</div>

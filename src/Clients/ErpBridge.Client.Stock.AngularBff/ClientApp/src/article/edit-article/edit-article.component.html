@@ -1,1 +1,58 @@
-<p>edit-article works!</p>
+<h1>Artikel bearbeiten</h1>
+
+<div>
+    <strong>Nummer:</strong>
+    <p>{{ model.number }}</p>
+</div>
+
+<form #articleForm="ngForm">
+    <div class="form-group col-sm-6">
+        <label for="inputStocklocation">Lagerplatz</label>
+        <input type="text" class="form-control" id="inputStocklocation" maxlength="255" 
+               [(ngModel)]="model.stockLocation" name="Lagerplatz" #Name="ngModel" />
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="EditArticle(articleForm.form.valid)">Speichern</button>
+</form>
+
+<div>
+    <strong>Name:</strong>
+    <p>{{ model.name }}</p>
+</div>
+
+<div>
+    <strong>Listenpreis:</strong>
+    <p>{{ model.listPrice | currency:'EUR' }}</p>
+</div>
+
+<div>
+    <strong>Rabattgruppe:</strong>
+    <p>{{ model.priceGroup }}</p>
+</div>
+
+<div>
+    <strong>Lagerbestand:</strong>
+    <p>{{ model.stockAmount }}</p>
+</div>
+
+<div>
+    <strong>Beschreibung:</strong>
+    <pre>{{ model.description }}</pre>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Aktionen</h2>
+    </div>
+    <div class="panel-body">
+        <a [routerLink]="['/article']">
+            <button mat-icon-button #tooltip="matTooltip" matTooltip="Liste aufrufen">
+                <mat-icon class="view-icon">list</mat-icon>
+            </button>
+        </a>
+        <a routerLink="/article/{{model.number}}/show">
+            <button mat-icon-button #tooltip="matTooltip" matTooltip="Anzeigen">
+                <mat-icon class="view-icon">visibility</mat-icon>
+            </button>
+        </a>
+    </div>
+</div>

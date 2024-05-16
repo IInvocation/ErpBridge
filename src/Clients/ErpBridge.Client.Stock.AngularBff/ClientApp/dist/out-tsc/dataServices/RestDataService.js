@@ -1,7 +1,15 @@
 import { HttpParams } from '@angular/common/http';
+const headers = { 'Content-Type': 'application/json' };
 export class RestDataService {
     constructor(httpClient) {
         this.httpClient = httpClient;
+    }
+    update(item) {
+        var json = JSON.stringify(item);
+        return this.httpClient.put(this.basePath, json, { headers });
+    }
+    get(pk) {
+        return this.httpClient.get(this.basePath + pk);
     }
     getAll() {
         return this.httpClient.get(this.basePath + 'GetAll');

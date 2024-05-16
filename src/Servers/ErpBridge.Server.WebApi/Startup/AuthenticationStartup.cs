@@ -1,4 +1,6 @@
-﻿using ErpBridge.Server.WebApi.Options;
+﻿using ErpBridge.Server.WebApi.ClaimsTransformations;
+using ErpBridge.Server.WebApi.Options;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Protocols.Configuration;
 
@@ -15,6 +17,7 @@ public static class AuthenticationStartup
     /// <returns>   An IServiceCollection. </returns>
     public static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
+        
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -43,6 +46,8 @@ public static class AuthenticationStartup
                 }
             };
         });
+
+        services.AddTransient<IClaimsTransformation, KeycloakRoleTransformation>();
 
         return services;
     }
